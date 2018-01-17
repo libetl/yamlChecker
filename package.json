@@ -1,0 +1,11 @@
+{
+  "name": "yamlchecker",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "yamljs": "latest"
+  },
+  "devDependencies": {
+    "webpack": "latest"
+  }
+}
