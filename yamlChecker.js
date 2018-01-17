@@ -1,5 +1,6 @@
 const yaml = require('yamljs')
 const fs = require('fs')
+const path = require('path')
 
 const keepKeysOf = (object, name) => Object.entries(object)
     .map(([key, value]) => typeof value === 'object' ? {[key]: keepKeysOf(value, name)} : {[key]:name})
@@ -20,7 +21,7 @@ const getStatus = data => {
 
     const allYamls = data.toString().split('---')
         .map(oneYaml => yaml.parse(oneYaml))
-        .reduce((acc, value) => Object.assign(acc, {[(value && value.spring.profiles) || 'default']: value}), {})
+        .reduce((acc, value) => Object.assign(acc, value.spring ? {[(value.spring.profiles) || 'default']: value} : {}), {})
 
     const allKeys = Object.entries(allYamls).map(([key, oneYaml]) => ({[key]: keepKeysOf(oneYaml, key)}))
         .reduce((acc, value) => Object.assign(acc, value), {})
@@ -31,8 +32,17 @@ const getStatus = data => {
         .reduce((acc, value) => Object.assign(acc, value), {})
 }
 
-const check = files => Promise.all(files.map(file => new Promise((resolve, reject) => fs.readFile(file, (err, data) => err ? reject(data) : resolve(data)))))
-    .then(allFiles => allFiles.reduce((acc, value) => acc.length ? acc + '\n---\n' + value : value, ''))
+const addedProfileTo = ({file, data}) => {
+    const suffix = (file.split('/').slice(-1)[0].match(/^[^.]+-([^.]+)\.yml$/)||[])[1]
+    return !suffix ? data :
+        `spring:
+   profiles: ${suffix}
+
+${data}`
+}
+
+const check = files => Promise.all(files.map(file => new Promise((resolve, reject) => fs.readFile(file, (err, data) => err ? reject(err) : resolve({data, file})))))
+    .then(allFiles => allFiles.reduce((acc, value) => acc.length ? acc + '\n---\n' + addedProfileTo(value) : addedProfileTo(value), ''))
     .then(dump => {
         const status = dump.length ? getStatus(dump) : {}
 
@@ -42,4 +52,3 @@ const check = files => Promise.all(files.map(file => new Promise((resolve, rejec
     })
 
 check(process.argv.slice(2))
-
