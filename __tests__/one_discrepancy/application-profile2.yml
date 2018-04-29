@@ -1,0 +1,12 @@
+first:
+  second: value
+
+#required:
+#  value: forgotten value
+
+empty:
+  value:
+
+myValue2:
+  value2: value2
+

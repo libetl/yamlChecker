@@ -1,16 +1,19 @@
 {
   "name": "yamlchecker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "dependencies": {
     "cli-table": "latest",
     "yamljs": "latest"
   },
   "devDependencies": {
+    "chai": "latest",
+    "jest": "latest",
     "webpack": "latest",
     "webpack-cli": "latest"
   },
   "scripts": {
+    "test": "jest",
     "build": "webpack --mode production"
   },
   "bin": {

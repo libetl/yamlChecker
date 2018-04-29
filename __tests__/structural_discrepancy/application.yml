@@ -1,0 +1,9 @@
+first:
+  second: value
+
+required:
+  value: valueIsSetCorrectly
+
+empty:
+  value:
+

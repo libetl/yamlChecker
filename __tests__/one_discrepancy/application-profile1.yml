@@ -1,0 +1,12 @@
+first:
+  second: value
+
+required:
+  value: anotherValueIsSetCorrectly
+
+empty:
+  value:
+
+myValue:
+  value: value1
+
