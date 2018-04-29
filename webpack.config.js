@@ -1,4 +1,5 @@
-const path = require('path');
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
     entry: './yamlChecker.js',
@@ -9,5 +10,11 @@ module.exports = {
     },
     node: {
         fs: 'empty'
-    }
-};
+    },
+    plugins: [
+        new webpack.BannerPlugin({
+            banner: '#!/usr/bin/env node',
+            raw: true,
+        })
+    ]
+}
