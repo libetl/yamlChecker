@@ -1,6 +1,6 @@
 {
   "name": "yamlchecker",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": false,
   "description": "Quickly find the discrepancies between spring boot application yml files",
   "dependencies": {
