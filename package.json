@@ -3,9 +3,17 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "cli-table": "latest",
     "yamljs": "latest"
   },
   "devDependencies": {
-    "webpack": "latest"
+    "webpack": "latest",
+    "webpack-cli": "latest"
+  },
+  "scripts": {
+    "build": "webpack --mode production"
+  },
+  "bin": {
+    "yamlChecker": "./dist/yamlChecker.bin.js"
   }
 }
