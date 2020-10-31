@@ -8,9 +8,6 @@ module.exports = {
         filename: 'yamlChecker.bin.js',
         path: path.resolve(__dirname, 'dist')
     },
-    node: {
-        fs: 'empty'
-    },
     plugins: [
         new webpack.BannerPlugin({
             banner: '#!/usr/bin/env node',
